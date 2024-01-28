@@ -1,0 +1,73 @@
+// Define the data source
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Define the generator for Prisma client
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  password String
+}
+
+model Match {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  schedule String
+  pool String
+  status   Status @default(UPCOMING)
+  matchNo  Int    @unique
+  period   Period @default(SCHEDULED)
+  teams    Team[]
+  winner    String?
+  nextMatch  Int? 
+}
+
+model Teams {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+}
+
+type Team {
+  name       String?
+  goalScorer GoalScorer[] 
+  shootout Boolean[] @default([])
+}
+
+
+
+type GoalScorer {
+  player String
+  time Int
+  goalType GoalType @default(FIELD)
+  jersey Int?
+}
+
+enum Status {
+  UPCOMING
+  LIVE
+  RESULT
+}
+
+enum GoalType {
+  OWN
+  PENALTY
+  FIELD
+}
+
+enum Period {
+  NP
+  START
+  SCHEDULED
+  FIRST_QUARTER
+  SECOND_QUARTER
+  HALF
+  THIRD_QUARTER
+  FOURTH_QUARTER
+  FULL
+  SHOOTOUT
+}

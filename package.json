@@ -1,0 +1,32 @@
+{
+  "name": "hifliers-final",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "npx prisma generate"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^3.11.0",
+    "@prisma/client": "^5.8.1",
+    "axios": "^1.6.2",
+    "framer-motion": "^10.16.4",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.0.2",
+    "p5": "^1.9.0",
+    "react": "^18",
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18",
+    "react-icons": "^4.12.0",
+    "sass": "^1.69.5"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.38",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.2",
+    "prisma": "^5.8.1"
+  }
+}

@@ -1,0 +1,16 @@
+@import "@/styles/root.scss";
+.footerWrapper {
+  background-color: rgb(175, 173, 168);
+  h3 {
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    font-family: sans-serif;
+    font-size: 1rem;
+    padding: 5px;
+
+    @include mobile {
+      font-size: 0.8rem;
+    }
+  }
+}

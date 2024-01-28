@@ -1,0 +1,189 @@
+@import "@/styles/root.scss";
+.fixtureMain {
+  margin: auto;
+  margin-top: 2rem;
+
+
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      @include mobile {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      h1 {
+        font-size: 96px;
+        font-weight: 100;
+
+        @include mobile {
+          font-size: 36px;
+        }
+      }
+    }
+  }
+
+  //   tabs
+  .tabsWrapper {
+    width: 50%;
+    margin: auto;
+    max-height: 75vh;
+    overflow-y: scroll;
+    @include tablet {
+      width: 90%;
+    }
+    .tabsContainer {
+      display: flex;
+      margin-bottom: 20px;
+
+      .tab {
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid #868282;
+        border-radius: 4px;
+        margin-right: 10px;
+        flex: 1;
+        text-align: center;
+
+        &.tabActive {
+          background-color: blue;
+          color: #fff;
+        }
+      }
+    }
+    .tabContent {
+      margin-top: 20px;
+      .tabButton {
+        padding: 1rem;
+        background-color: blue;
+        color: #fff;
+        outline: none;
+        border: none;
+        transition: all 0.5s ease-out;
+        border-radius: 5px;
+        margin-top: 5px;
+        width: fit-content;
+        &:hover {
+          background-color: rgb(203, 203, 209);
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+.cardWrapper {
+  color: #1b1464;
+  margin-bottom: 1.4rem;
+
+  p {
+    padding: 0;
+    height: fit-content;
+    width: fit-content;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+  .cardMain {
+    .cardHeader {
+      font-family: fantasy;
+      font-size: 1rem;
+      margin-bottom: 0;
+      padding: 0.6rem;
+      background-color: #e0e8e9;
+    }
+    .cardBody {
+      padding: 1rem;
+      background-color: #e0e8e9;
+      @include mobile {
+        padding: 0.6rem;
+      }
+      h3 {
+        text-align: end;
+        font-size: 0.8rem;
+        background-color: blue;
+        color: #fff;
+        width: max-content;
+        text-transform: uppercase;
+        padding: 5px;
+      }
+      .gameInfo {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 2rem;
+
+        @include tablet {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
+        .teams {
+          font-weight: 600;
+          text-transform: uppercase;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          @include tablet {
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          .scorerContainer1 {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            div {
+              @include tablet {
+                font-size: 0.9rem;
+              }
+            }
+          }
+          .scorerContainer2 {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            div {
+              @include tablet {
+                font-size: 0.9rem;
+                align-items: start;
+              }
+            }
+          }
+        }
+
+        .info {
+          div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.infoContainer {
+  text-transform: uppercase;
+  background-color: #e0e8e9;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}

@@ -1,0 +1,194 @@
+@import "@/styles/root.scss";
+.event {
+  background: linear-gradient(180deg, #0c0c1d, #111132);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 3rem;
+
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      @include mobile {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      h1 {
+        font-size: 96px;
+        font-weight: 100;
+
+        @include mobile {
+          font-size: 36px;
+        }
+      }
+    }
+  }
+  .listDetails {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    max-width: 1366px;
+    margin: auto;
+    color: white;
+
+    @include mobile {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .box {
+      padding-inline: 50px;
+      padding-block: 3rem;
+
+      @include mobile {
+        border: none;
+        align-items: center;
+        gap: 10px;
+        padding-inline: 10px;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 3rem;
+        font-family: Georgia, Times, "Times New Roman", serif;
+        margin-bottom: 2rem;
+        font-style: italic;
+        @include tablet {
+          font-size: 1.8rem;
+        }
+      }
+
+      ol {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+        li {
+          margin: 10px 0;
+          padding: 10px;
+          border-radius: 5px;
+          color: orange;
+          font-size: 1.5em;
+          font-weight: 600;
+          text-transform: capitalize;
+          @include tablet {
+            font-size: 1.1rem;
+          }
+          h4 {
+            text-align: start;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: darkgray;
+            text-transform: capitalize;
+            text-align: center;
+            @include tablet {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+
+      p {
+        font-family: "Arial", sans-serif;
+        font-size: 1.1em;
+        line-height: 1.7;
+        text-align: center;
+
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 20px;
+        @include mobile {
+          line-height: 1.1;
+          font-size: 1em;
+        }
+      }
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        gap: 3em;
+        margin-block: 2rem;
+
+        @include tablet {
+          flex-direction: column;
+        }
+
+        .flexChild {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          @include tablet {
+            flex-direction: column;
+            gap: 10px;
+          }
+          .label {
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: Georgia, Times, "Times New Roman", serif;
+            margin-bottom: 2rem;
+            font-style: italic;
+            @include tablet {
+              margin-bottom: 1rem;
+              font-size: 1.8rem;
+            }
+            @include mobile {
+              font-size: 1.4rem;
+            }
+          }
+          .personInfo {
+            h2 {
+              text-align: center;
+              text-transform: uppercase;
+              font-size: 1.5rem;
+              @include mobile {
+                font-size: 1rem;
+              }
+            }
+            div {
+              margin-block: 2rem;
+              @include mobile {
+                margin-block: 1rem;
+              }
+              h3 {
+                text-align: center;
+                text-transform: capitalize;
+                font-size: 1.5rem;
+                color: orange;
+                margin-bottom: 0;
+                @include mobile {
+                  font-size: 1rem;
+                }
+              }
+              h5 {
+                text-align: center;
+                text-transform: capitalize;
+                font-size: 1rem;
+                color: darkgray;
+                @include mobile {
+                  font-size: 0.6rem;
+                }
+              }
+              &:first-of-type {
+                margin-top: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
