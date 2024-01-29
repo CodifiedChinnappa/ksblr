@@ -8,8 +8,17 @@ import Nav from "../Nav";
 
 const initialState = {
   pool: "",
-  teams: [{ name: "" }, { name: "" }],
-  nextMatch: undefined,
+  teams: [
+    {
+      name: "",
+    },
+    {
+      name: "",
+    },
+  ],
+  nextMatch: "",
+  schedule: "",
+  round: "",
 };
 
 const CreateSchedule = () => {
@@ -28,29 +37,48 @@ const CreateSchedule = () => {
     }
   };
 
+  console.log({
+    ...formData,
+  });
+
+  const resetFormData = () => {
+    setFormData(() => ({
+      ...initialState,
+      teams: [
+        {
+          name: "",
+        },
+        {
+          name: "",
+        },
+      ],
+    }));
+  };
+  
+
   const fetchMatches = async () => {
     setLoadingFixtures(true);
     try {
       const res = await axios.get("/api/matches");
       setMatchList(res.data.matches);
     } catch (error) {
-      console.error("Error fetching teams:", error);
+      console.error("Error fetching matches:", error); // Corrected the log message
     }
     setLoadingFixtures(false);
   };
 
   useEffect(() => {
     fetchTeams();
+    fetchMatches(); // Moved fetchMatches to a separate useEffect to fetch matches initially and when saving changes
   }, []);
-
   const handleChange = (e, teamIndex) => {
     const { name, value } = e.target;
     setFormData((prevData) => {
       const newData = { ...prevData };
-      if (teamIndex !== undefined) {
-        newData.teams[teamIndex][name] = value;
-      } else {
+      if (["pool", "nextMatch", "schedule", "round"].includes(name)) {
         newData[name] = value;
+      } else if (name === "name" && teamIndex !== undefined) {
+        newData.teams[teamIndex][name] = value;
       }
       return newData;
     });
@@ -61,17 +89,12 @@ const CreateSchedule = () => {
     setSaving(true);
     try {
       const res = await axios.post("/api/matches", formData);
-      setFormData(initialState);
-      fetchTeams();
+      resetFormData();
     } catch (error) {
-      console.error("Error adding team:", error);
+      console.error("Error adding match:", error);
     }
     setSaving(false);
   };
-
-  useEffect(() => {
-    fetchMatches();
-  }, [saving]);
 
   return (
     <div className="scheduleWrapper">
@@ -93,7 +116,7 @@ const CreateSchedule = () => {
         <label>
           Pool
           <select
-            defaultValue=""
+            value={formData.pool}
             onChange={(e) => handleChange(e)}
             name="pool"
             required
@@ -109,9 +132,9 @@ const CreateSchedule = () => {
         <label>
           Round
           <select
-            defaultValue=""
+            value={formData.round}
             onChange={(e) => handleChange(e)}
-            name="pool"
+            name="round" // Changed the name attribute
             required
           >
             <option value="" disabled>
@@ -135,9 +158,7 @@ const CreateSchedule = () => {
                 name="name"
                 required
               >
-                <option value="" disabled>
-                  Select Team
-                </option>
+                <option value="">Select Team</option>
                 {teamList
                   ?.filter(
                     (teamOption) =>
@@ -162,10 +183,11 @@ const CreateSchedule = () => {
             min="1"
             max="19"
             name="nextMatch"
+            placeholder="Enter next match No"
             onChange={(e) => handleChange(e)}
           />
         </label>
-        <button type="submit">Add</button>
+        {saving ? <Spinner /> : <button type="submit">Add</button>}
       </form>
       <div className="cardContainer">
         {loadingFixtures ? (

@@ -21,12 +21,10 @@ export async function POST(request) {
       });
     }
 
-    const nextMatchNo = (await prisma.match.count()) + 1;
 
     const newTeam = await prisma.teams.create({
       data: {
-        ...data,
-        matchNo: nextMatchNo,
+        name,
       },
     });
 

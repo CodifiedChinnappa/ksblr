@@ -23,9 +23,9 @@ const formatDateTime = (inputDateString) => {
 };
 
 function getStartingLetters(inputString) {
-  const wordsArray = inputString.split(" ");
-  const startingLetters = wordsArray.map((word) => word.charAt(0));
-  return startingLetters.join("");
+  const wordsArray = inputString?.split(" ");
+  const startingLetters = wordsArray?.map((word) => word.charAt(0));
+  return startingLetters?.join("");
 }
 
 function calculateWinner(teams) {
@@ -55,7 +55,8 @@ const FixtureCard = ({ match }) => {
   return (
     <div className="cardWrapper">
       <p>
-        <SlCalender /> {formatDate(match.schedule)}
+        <SlCalender /> {formatDate(match.schedule)},
+      &nbsp;
         {formatDateTime(match.schedule)}
       </p>
       <div className="cardMain">
@@ -71,12 +72,7 @@ const FixtureCard = ({ match }) => {
               ? "(Final)"
               : match.matchNo === 16 && "(3rd & 4th Place)"}
           </strong>
-          <div>
-            <div>
-              {formatDate(match.schedule)}
-              {formatDateTime(match.schedule)}
-            </div>
-          </div>
+         
         </div>
 
         <div className="cardBody">
