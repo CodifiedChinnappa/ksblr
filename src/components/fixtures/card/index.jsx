@@ -6,9 +6,8 @@ const formatDate = (inputDateString) => {
   const date = new Date(inputDateString);
 
   return date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
+    weekday: "short",
+    month: "short",
     day: "numeric",
   });
 };
@@ -57,25 +56,31 @@ const FixtureCard = ({ match }) => {
     <div className="cardWrapper">
       <p>
         <SlCalender /> {formatDate(match.schedule)}
+        {formatDateTime(match.schedule)}
       </p>
       <div className="cardMain">
         <div className="cardHeader">
-          Match {match.matchNo} : {match.teams[0].name} VS {match.teams[1].name}{" "}
-          <strong>({match.period})</strong> &nbsp;
+          Match {match.matchNo}
+          <small>
+            : {match.teams[0].name} <strong>VS</strong> {match.teams[1].name}{" "}
+          </small>
+          &nbsp;
+          {/* TODO */}
           <strong style={{ textTransform: "uppercase", borderRadius: "5px" }}>
             {match.matchNo === 17
               ? "(Final)"
               : match.matchNo === 16 && "(3rd & 4th Place)"}
           </strong>
           <div>
-            <div>{formatDate(match.schedule)}</div>
-            <div>Local Time {formatDateTime(match.schedule)}</div>
-            <div> Ground</div>
+            <div>
+              {formatDate(match.schedule)}
+              {formatDateTime(match.schedule)}
+            </div>
           </div>
         </div>
 
         <div className="cardBody">
-          <h3
+          {/* <h3
             style={{
               background:
                 match.status === "UPCOMING"
@@ -87,88 +92,113 @@ const FixtureCard = ({ match }) => {
             }}
           >
             {match.status}
+          </h3> */}
+          <h3
+            style={{
+              background: "Blue",
+              marginBottom: `10px`,
+            }}
+          >
+            {match.period}
           </h3>
+
           <div className="gameInfo">
             <div className="teams">
-              <div>{getStartingLetters(match.teams[0].name)}({match.status !== "UPCOMING" &&
-                  match.teams[0].goalScorer.length})</div>
-            
-
               <div
                 style={{
-                  fontSize: "1rem",
-                  fontWeight: 400,
-                  textTransform: "capitalize",
+                  fontSize: "1.5rem",
+                  fontWeight: 900,
                 }}
-                className="scorerContainer1"
               >
-                {match.teams[0].goalScorer.map((scorer) => (
-                  <div key={scorer.player + scorer.time}>
-                    {scorer.player} : {scorer.time}min
-                  </div>
-                ))}
+                {getStartingLetters(match.teams[0].name)}
+                {match.status !== "UPCOMING" &&
+                  `(${match.teams[0].goalScorer.length})`}
               </div>
-              {match.teams[0].shootout && (
-               
-                  <div >
-                  <h1
-                    style={{
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      textTransform:"uppercase"
-                    }}
-                  >
-                    shootout
-                  </h1>
-                  {match.teams[0].shootout.map((item, i) => (
-                    <span key={i} style={{marginRight:"10px", background:"blue",padding:"0.2rem",color:"white"}}>
-                     {item ? "1" : "0"}
-                    </span>
-                  ))}
-                  </div>
-              )}
-            </div>
 
-            <div className="teams" style={{ textAlign: "end" }}>
-            <div>{getStartingLetters(match.teams[1].name)}({match.status !== "UPCOMING" &&
-                  match.teams[1].goalScorer.length})</div>
-              <div
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: 400,
-                  textTransform: "capitalize",
-                }}
-                className="scorerContainer2"
-              >
-                {match.teams[1].goalScorer.map((scorer) => (
-                  <div key={scorer.player + scorer.time}>
-                    {scorer.player} : {scorer.time}min
-                  </div>
-                ))}
-              </div>
-              {match.teams[1].penalties && (
+              {!!match.teams[0].goalScorer.length > 0 ? (
                 <div
                   style={{
                     fontSize: "1rem",
                     fontWeight: 400,
                     textTransform: "capitalize",
-                    marginTop: "0.4rem",
+                    marginBottom: "15px",
                   }}
+                  className="scorerContainer1"
                 >
-                  Penalities/shootout:
-                  <span
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {match.teams[1].penalties}
-                  </span>
+                  <h1 className="label">goals</h1>
+                  {match.teams[0].goalScorer.map((scorer) => (
+                    <div key={scorer.player + scorer.time}>
+                      {scorer.player} : {scorer.time}min
+                    </div>
+                  ))}
                 </div>
-              )}
+              ) : null}
+              {match.teams[0].shootout.length > 0 ? (
+                <div>
+                  <h1 className="label">shootout</h1>
+                  {match.teams[0].shootout.map((item, i) => (
+                    <span
+                      key={i}
+                      style={{
+                        marginRight: "10px",
+                        background: "blue",
+                        padding: "0.2rem",
+                        color: "white",
+                      }}
+                    >
+                      {item ? "1" : "0"}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="teams" style={{ textAlign: "end" }}>
+              <div className="label">
+                {getStartingLetters(match.teams[1].name)}
+                {match.status !== "UPCOMING" &&
+                  `(${match.teams[1].goalScorer.length})`}
+              </div>
+
+              {!!match.teams[1].goalScorer.length > 0 ? (
+                <div
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 400,
+                    textTransform: "capitalize",
+                    marginBottom: "15px",
+                  }}
+                  className="scorerContainer1"
+                >
+                  <h1 className="label">goals</h1>
+                  {match.teams[1].goalScorer.map((scorer) => (
+                    <div key={scorer.player + scorer.time}>
+                      {scorer.player} : {scorer.time}min
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              {match.teams[1].shootout.length > 0 ? (
+                <div>
+                  <h1 className="label">shootout</h1>
+                  {match.teams[1].shootout.map((item, i) => (
+                    <span
+                      key={i}
+                      style={{
+                        marginRight: "10px",
+                        background: "blue",
+                        padding: "0.2rem",
+                        color: "white",
+                      }}
+                    >
+                      {item ? "1" : "0"}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
-        
+
           {match.status === "RESULT" && (
             <div
               style={{

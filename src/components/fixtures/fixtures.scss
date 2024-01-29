@@ -3,7 +3,6 @@
   margin: auto;
   margin-top: 2rem;
 
-
   .titleContainer {
     display: flex;
     flex-direction: column;
@@ -93,20 +92,25 @@
     height: fit-content;
     width: fit-content;
     font-size: 1rem;
-    color: white;
+    color: rgb(20, 19, 19);
     margin-bottom: 0.3rem;
   }
   .cardMain {
     .cardHeader {
       font-family: fantasy;
-      font-size: 1rem;
       margin-bottom: 0;
+      font-size: 1.3rem;
       padding: 0.6rem;
-      background-color: #e0e8e9;
+      background-color: #ffffff;
+      @include mobile {
+        font-size: 0.9rem;
+      }
     }
     .cardBody {
       padding: 1rem;
       background-color: #e0e8e9;
+      font-size: 1.3rem;
+
       @include mobile {
         padding: 0.6rem;
       }
@@ -121,23 +125,18 @@
       }
       .gameInfo {
         display: flex;
-        align-items: start;
-        justify-content: space-between;
-        gap: 2rem;
+        align-items: flex-start;
 
-        @include tablet {
-          flex-direction: column;
-          align-items: center;
-          gap: 2rem;
-        }
         .teams {
           font-weight: 600;
           text-transform: uppercase;
           flex: 1;
           display: flex;
           flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          padding: 2rem;
           gap: 1rem;
-
           @include tablet {
             align-items: center;
             justify-content: space-between;
@@ -146,7 +145,7 @@
           .scorerContainer1 {
             display: flex;
             flex-direction: column;
-            align-items: start;
+            align-items: center;
             div {
               @include tablet {
                 font-size: 0.9rem;
@@ -186,4 +185,12 @@
   border-radius: 10px;
   text-align: center;
   color: black;
+}
+
+.label {
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-transform: "uppercase";
+  text-align: "center";
+  margin-bottom: "5px";
 }
