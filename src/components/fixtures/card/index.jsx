@@ -18,7 +18,7 @@ const formatDateTime = (inputDateString) => {
   return date.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
-    hour12: true, // Include AM/PM
+    hour12: true,
   });
 };
 
@@ -55,24 +55,18 @@ const FixtureCard = ({ match }) => {
   return (
     <div className="cardWrapper">
       <p>
-        <SlCalender /> {formatDate(match.schedule)},
-      &nbsp;
+        <SlCalender /> {formatDate(match.schedule)}, &nbsp;
         {formatDateTime(match.schedule)}
       </p>
       <div className="cardMain">
         <div className="cardHeader">
-          Match {match.matchNo}
-          <small>
-            : {match.teams[0].name} <strong>VS</strong> {match.teams[1].name}{" "}
-          </small>
+          Match {match.matchNo} : {match.period}
           &nbsp;
-          {/* TODO */}
-          <strong style={{ textTransform: "uppercase", borderRadius: "5px" }}>
-            {match.matchNo === 17
-              ? "(Final)"
-              : match.matchNo === 16 && "(3rd & 4th Place)"}
-          </strong>
-         
+          <h5>
+            {match.teams[0].name} <strong style={{ color: "blue" }}>VS</strong>{" "}
+            {match.teams[1].name}
+          </h5>
+          <h5>{match.round}</h5>
         </div>
 
         <div className="cardBody">
@@ -89,14 +83,6 @@ const FixtureCard = ({ match }) => {
           >
             {match.status}
           </h3> */}
-          <h3
-            style={{
-              background: "Blue",
-              marginBottom: `10px`,
-            }}
-          >
-            {match.period}
-          </h3>
 
           <div className="gameInfo">
             <div className="teams">
@@ -107,8 +93,6 @@ const FixtureCard = ({ match }) => {
                 }}
               >
                 {getStartingLetters(match.teams[0].name)}
-                {match.status !== "UPCOMING" &&
-                  `(${match.teams[0].goalScorer.length})`}
               </div>
 
               {!!match.teams[0].goalScorer.length > 0 ? (
@@ -121,7 +105,11 @@ const FixtureCard = ({ match }) => {
                   }}
                   className="scorerContainer1"
                 >
-                  <h1 className="label">goals</h1>
+                  <h1 className="label">
+                    goals
+                    {match.status !== "UPCOMING" &&
+                      `(${match.teams[0].goalScorer.length})`}
+                  </h1>
                   {match.teams[0].goalScorer.map((scorer) => (
                     <div key={scorer.player + scorer.time}>
                       {scorer.player} : {scorer.time}min
@@ -130,21 +118,30 @@ const FixtureCard = ({ match }) => {
                 </div>
               ) : null}
               {match.teams[0].shootout.length > 0 ? (
-                <div>
-                  <h1 className="label">shootout</h1>
-                  {match.teams[0].shootout.map((item, i) => (
-                    <span
-                      key={i}
-                      style={{
-                        marginRight: "10px",
-                        background: "blue",
-                        padding: "0.2rem",
-                        color: "white",
-                      }}
-                    >
-                      {item ? "1" : "0"}
-                    </span>
-                  ))}
+                <div className="shootout-container">
+                  <h1 className="label">
+                    Shootout
+                    {match.status !== "UPCOMING" &&
+                      `(${
+                        match.teams[0].shootout.filter((item) => item === true)
+                          .length
+                      })`}
+                  </h1>
+                  <div>
+                    {match.teams[0].shootout.map((item, i) => (
+                      <span
+                        key={i}
+                        style={{
+                          marginRight: "10px",
+                          background: "blue",
+                          padding: "0.2rem",
+                          color: "white",
+                        }}
+                      >
+                        {item ? "1" : "0"}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -152,8 +149,6 @@ const FixtureCard = ({ match }) => {
             <div className="teams" style={{ textAlign: "end" }}>
               <div className="label">
                 {getStartingLetters(match.teams[1].name)}
-                {match.status !== "UPCOMING" &&
-                  `(${match.teams[1].goalScorer.length})`}
               </div>
 
               {!!match.teams[1].goalScorer.length > 0 ? (
@@ -166,30 +161,45 @@ const FixtureCard = ({ match }) => {
                   }}
                   className="scorerContainer1"
                 >
-                  <h1 className="label">goals</h1>
-                  {match.teams[1].goalScorer.map((scorer) => (
-                    <div key={scorer.player + scorer.time}>
-                      {scorer.player} : {scorer.time}min
-                    </div>
-                  ))}
+                  <h1 className="label">
+                    goals
+                    {match.status !== "UPCOMING" &&
+                      `(${match.teams[1].goalScorer.length})`}
+                  </h1>
+                  <div>
+                    {match.teams[1].goalScorer.map((scorer) => (
+                      <div key={scorer.player + scorer.time}>
+                        {scorer.player} : {scorer.time}min
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : null}
               {match.teams[1].shootout.length > 0 ? (
-                <div>
-                  <h1 className="label">shootout</h1>
-                  {match.teams[1].shootout.map((item, i) => (
-                    <span
-                      key={i}
-                      style={{
-                        marginRight: "10px",
-                        background: "blue",
-                        padding: "0.2rem",
-                        color: "white",
-                      }}
-                    >
-                      {item ? "1" : "0"}
-                    </span>
-                  ))}
+                <div className="shootout-container">
+                  <h1 className="label">
+                    Shootout
+                    {match.status !== "UPCOMING" &&
+                      `(${
+                        match.teams[1].shootout.filter((item) => item === true)
+                          .length
+                      })`}
+                  </h1>
+                  <div>
+                    {match.teams[1].shootout.map((item, i) => (
+                      <span
+                        key={i}
+                        style={{
+                          marginRight: "10px",
+                          background: "blue",
+                          padding: "0.2rem",
+                          color: "white",
+                        }}
+                      >
+                        {item ? "1" : "0"}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>

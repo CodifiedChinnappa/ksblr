@@ -134,7 +134,7 @@ const CreateSchedule = () => {
           <select
             value={formData.round}
             onChange={(e) => handleChange(e)}
-            name="round" // Changed the name attribute
+            name="round" 
             required
           >
             <option value="" disabled>

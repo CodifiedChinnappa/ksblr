@@ -19,6 +19,7 @@ model Match {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   schedule String
   pool String
+  round String
   status   Status @default(UPCOMING)
   matchNo  Int    @unique
   period   Period @default(SCHEDULED)

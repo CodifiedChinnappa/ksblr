@@ -13,8 +13,6 @@ const initialState = {
 };
 
 const UpdateMatchForm = () => {
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [scoreDataTeamA, setScoreDataTeamA] = useState(initialState);
@@ -192,13 +190,13 @@ const UpdateMatchForm = () => {
   };
 
   return (
-    <>
+    <div className="scoreWrapper">
+      <Nav />
+
       {loading ? (
         <Spinner />
       ) : (
-        <div className="scoreWrapper">
-          <Nav />
-
+        <>
           {selectedMatch ? (
             <div>
               <label>
@@ -613,36 +611,13 @@ const UpdateMatchForm = () => {
                   End Match
                 </button>
               )}
-
-              {successMessage && (
-                <p
-                  style={{
-                    color: "green",
-                    textTransform: "uppercase",
-                    paddingTop: "5px",
-                  }}
-                >
-                  {successMessage}
-                </p>
-              )}
-              {errorMessage && (
-                <p
-                  style={{
-                    color: "red",
-                    textTransform: "uppercase",
-                    paddingTop: "5px",
-                  }}
-                >
-                  {errorMessage}
-                </p>
-              )}
             </div>
           ) : (
             <GameSelect />
           )}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
