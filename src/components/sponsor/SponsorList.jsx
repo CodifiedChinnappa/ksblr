@@ -5,16 +5,16 @@ import Image from "next/image";
 
 const sponsors = [
   {
-    name: "FirePro",
-    imageSrc: "/firepro.png",
+    name: "sponsor1",
+    imageSrc: "",
   },
   {
-    name: "Muliya",
-    imageSrc: "/muliya.webp",
+    name: "sponsor1",
+    imageSrc: "",
   },
   {
-    name: "brew bean",
-    imageSrc: "/brew-bean.jpg",
+    name: "sponsor1",
+    imageSrc: "",
   },
 ];
 
@@ -54,7 +54,7 @@ const SponsorList = () => {
               src={sponsor.imageSrc}
               fill
               style={{ objectFit: "contain" }}
-              alt={`Sponsor ${index + 1}`}
+              alt={sponsor.name}
             />
           </div>
         ))}

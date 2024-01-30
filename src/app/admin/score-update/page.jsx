@@ -176,7 +176,9 @@ const UpdateMatchForm = () => {
           value={selectedMatch?.matchNo}
           onChange={(e) => handleMatchSelect(parseInt(e.target.value))}
         >
-          <option value="">Select a match</option>
+          <option value="" disabled selected>
+            Select a match
+          </option>
           {matchList.length > 0 &&
             matchList?.map((match) => (
               <option key={match?.matchNo} value={match.matchNo}>
@@ -267,13 +269,15 @@ const UpdateMatchForm = () => {
                 {/* Team A */}
                 <div className="team-a">
                   <label>
-                    <strong>
+                    <div
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: 900,
+                      }}
+                    >
                       {getStartingLetters(selectedMatch.teams[0].name)}
-                    </strong>
+                    </div>
                     <br />
-                    <strong>
-                      Goals: {selectedMatch.teams[0].goalScorer.length}
-                    </strong>
                   </label>
 
                   <div className="teamContainer">
@@ -357,52 +361,40 @@ const UpdateMatchForm = () => {
                       Add
                     </button>
                   </div>
-
-                  {selectedMatch?.teams[0].goalScorer.length > 0 ? (
-                    <div
-                      className="scorerContainer"
-                      style={{
-                        textTransform: "capitalize",
-                        background: "transparent",
-                        color: "white",
-                        border: "none",
-                      }}
-                    >
-                      <h3> player </h3>
-                      <h3> time </h3>
-                      <h3> jersey </h3>
-                      <h3> goalType </h3>
-                      <h3> delete </h3>
-                    </div>
-                  ) : null}
-                  {selectedMatch?.teams[0].goalScorer.map((scorer, index) => (
-                    <div key={index} className="scorerContainer">
-                      <h3> {scorer.player} </h3>
-                      <h3> {scorer.time} </h3>
-                      <h3> {scorer.jersey} </h3>
-                      <h3> {scorer.goalType} </h3>
-                      <button
-                        type="button"
-                        style={{ background: "red" }}
-                        onClick={() =>
-                          handleDeleteGoalScorer(
-                            selectedMatch.teams[0].name,
-                            scorer.player
-                          )
-                        }
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                  <>
+                    {" "}
+                    <strong>
+                      Goals: ({selectedMatch.teams[0].goalScorer.length})
+                    </strong>
+                    {selectedMatch?.teams[0].goalScorer.map((scorer, index) => (
+                      <div key={index} className="scorerContainer">
+                        <h3> {scorer.player} </h3>
+                        <h3> {scorer.time} Min </h3>
+                        <h3> {scorer.jersey} </h3>
+                        <h3> {scorer.goalType.slice(0, 3)} </h3>
+                        <button
+                          type="button"
+                          style={{ background: "red" }}
+                          onClick={() =>
+                            handleDeleteGoalScorer(
+                              selectedMatch.teams[0].name,
+                              scorer.player
+                            )
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ))}
+                  </>
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "space-evenly",
+                      justifyContent: "space-between",
                       alignItems: "center",
                     }}
                   >
-                    Shootout(
+                    Shootout (
                     {
                       selectedMatch.teams[0].shootout.filter(
                         (item) => item === true
@@ -423,25 +415,29 @@ const UpdateMatchForm = () => {
                       Miss
                     </button>
                   </div>
-
-                  {selectedMatch.teams[0].shootout.map((item, i) => (
-                    <h5 key={i}>
-                      {i + 1} : {item ? "scored" : "missed"}
-                    </h5>
-                  ))}
+                  <div
+                    className="scorerContainer"
+                    style={{ flexDirection: "column" }}
+                  >
+                    {selectedMatch.teams[0].shootout.map((item, i) => (
+                      <h5 key={i}>
+                        {i + 1} : {item ? "scored" : "missed"}
+                      </h5>
+                    ))}
+                  </div>
                 </div>
-
                 {/* Team B */}
                 <div className="team-b">
                   <label>
-                    <strong>
-                      {" "}
+                    <div
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: 900,
+                      }}
+                    >
                       {getStartingLetters(selectedMatch.teams[1].name)}
-                    </strong>
+                    </div>
                     <br />
-                    <strong>
-                      Goals: {selectedMatch.teams[1].goalScorer.length}
-                    </strong>
                   </label>
 
                   <div className="teamContainer">
@@ -524,51 +520,39 @@ const UpdateMatchForm = () => {
                       </button>
                     </div>
                   </div>
-                  {selectedMatch?.teams[1].goalScorer.length > 0 ? (
-                    <div
-                      className="scorerContainer"
-                      style={{
-                        textTransform: "capitalize",
-                        background: "transparent",
-                        color: "white",
-                        border: "none",
-                      }}
-                    >
-                      <h3> player </h3>
-                      <h3> time </h3>
-                      <h3> jersey </h3>
-                      <h3> goalType </h3>
-                      <h3> delete </h3>
-                    </div>
-                  ) : null}
-                  {selectedMatch?.teams[1].goalScorer.map((scorer, index) => (
-                    <div key={index} className="scorerContainer">
-                      <h3> {scorer.player} </h3>
-                      <h3> {scorer.time} </h3>
-                      <h3> {scorer.jersey} </h3>
-                      <h3> {scorer.goalType} </h3>
-                      <button
-                        type="button"
-                        style={{ background: "red" }}
-                        onClick={() =>
-                          handleDeleteGoalScorer(
-                            selectedMatch.teams[1].name,
-                            scorer.player
-                          )
-                        }
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                  <>
+                    <strong>
+                      Goals: ({selectedMatch.teams[1].goalScorer.length})
+                    </strong>
+
+                    {selectedMatch?.teams[1].goalScorer.map((scorer, index) => (
+                      <div key={index} className="scorerContainer">
+                        <h3> {scorer.player} </h3>
+                        <h3> {scorer.time} Min </h3>
+                        <h3> {scorer.jersey} </h3>
+                        <h3> {scorer.goalType.slice(0, 3)} </h3>
+                        <button
+                          type="button"
+                          style={{ background: "red" }}
+                          onClick={() =>
+                            handleDeleteGoalScorer(
+                              selectedMatch.teams[1].name,
+                              scorer.player
+                            )
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ))}
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "space-evenly",
+                      justifyContent: "space-between",
                       alignItems: "center",
                     }}
                   >
-                    Shootout(
+                    Shootout (
                     {
                       selectedMatch.teams[1].shootout.filter(
                         (item) => item === true
@@ -589,12 +573,18 @@ const UpdateMatchForm = () => {
                       Miss
                     </button>
                   </div>
+                  <div
+                    className="scorerContainer"
+                    style={{ flexDirection: "column" }}
+                  >
+                    {selectedMatch.teams[1].shootout.map((item, i) => (
+                      <h5 key={i}>
+                        {i + 1} : {item ? "scored" : "missed"}
+                      </h5>
+                    ))}
+                  </div>
+                  </>
 
-                  {selectedMatch.teams[1].shootout.map((item, i) => (
-                    <h5 key={i}>
-                      {i + 1} : {item ? "scored" : "missed"}
-                    </h5>
-                  ))}
                 </div>
               </div>
 

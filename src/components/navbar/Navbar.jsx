@@ -10,7 +10,7 @@ const Navbar = () => {
       <Sidebar />
       <div className="wrapper">
         <div className="social">
-          <Image src="/logo.png" width={90} height={80} alt="hi-fliers" />
+          <Image src="/logo.png" width={100} height={80} alt="hi-fliers" />
         </div>
       </div>
     </div>
