@@ -60,29 +60,16 @@ const FixtureCard = ({ match }) => {
       </p>
       <div className="cardMain">
         <div className="cardHeader">
-          Match {match.matchNo} : {match.period}
+          Match {match.matchNo} : {match.round} : {match.period}
           &nbsp;
           <h5>
             {match.teams[0].name} <strong style={{ color: "blue" }}>VS</strong>{" "}
             {match.teams[1].name}
           </h5>
-          <h5>{match.round}</h5>
         </div>
 
         <div className="cardBody">
-          {/* <h3
-            style={{
-              background:
-                match.status === "UPCOMING"
-                  ? "blue"
-                  : match.status === "LIVE"
-                  ? "green"
-                  : "orange",
-              marginBottom: `10px`,
-            }}
-          >
-            {match.status}
-          </h3> */}
+     
 
           <div className="gameInfo">
             <div className="teams">
@@ -101,7 +88,6 @@ const FixtureCard = ({ match }) => {
                     fontSize: "1rem",
                     fontWeight: 400,
                     textTransform: "capitalize",
-                    marginBottom: "15px",
                   }}
                   className="scorerContainer1"
                 >
@@ -157,7 +143,6 @@ const FixtureCard = ({ match }) => {
                     fontSize: "1rem",
                     fontWeight: 400,
                     textTransform: "capitalize",
-                    marginBottom: "15px",
                   }}
                   className="scorerContainer1"
                 >
@@ -206,17 +191,18 @@ const FixtureCard = ({ match }) => {
           </div>
 
           {match.status === "RESULT" && (
-            <div
+            <h6
               style={{
                 marginTop: "10px",
                 textAlign: "center",
                 padding: "0.2rem",
                 background: "green",
                 color: "white",
+                fontSize:"0.8rem"
               }}
             >
               {calculateWinner(match.teams)}
-            </div>
+            </h6>
           )}
         </div>
       </div>

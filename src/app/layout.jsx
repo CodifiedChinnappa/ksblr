@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
         />
         <meta name="author" content="chinnappa" />
         <link rel="canonical" href="https://hifliersvbadaga.in" />
+        <link rel="shortcut icon" href="./favicon-16x16.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="google-site-verification"

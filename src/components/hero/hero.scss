@@ -2,8 +2,9 @@
 
 .hero {
   height: calc(100vh - 100px);
-  background-color: #8bc6ec;
-  background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+  background-color: #ca7968;
+  background-image: linear-gradient(315deg, #ca7968 0%, #0c0c0c 74%);
+  
 
   position: relative;
 
@@ -62,7 +63,9 @@
           transition: all 0.5s ease-out;
         }
       }
-
+      h1{
+        color: burlywood;
+      }
       h2 {
         font-size: 30px;
         color: white;
@@ -106,7 +109,7 @@
           border: 1px solid white;
           border-radius: 10px;
           background-color: transparent;
-          color: white;
+          color: burlywood;
           margin-right: 20px;
           cursor: pointer;
           font-weight: 300;

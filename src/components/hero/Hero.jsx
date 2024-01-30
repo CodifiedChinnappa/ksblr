@@ -51,6 +51,8 @@ const Hero = () => {
               <SlCalender /> &nbsp; 4<sup>th</sup> Feb - 25<sup>th</sup> Feb
               2024
             </p>
+            <p>
+            </p>
           </motion.h1>
           <motion.h3 variants={textVariants}>
             <FaLocationDot />

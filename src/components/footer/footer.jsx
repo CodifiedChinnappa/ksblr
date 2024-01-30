@@ -3,7 +3,7 @@ import "./footer.scss";
 const Footer = () => {
   return (
     <div className="footerWrapper">
-      <h3>Designed & Developed by: RemoteDev@2023</h3>
+      <h3>Designed & Developed by:<span style={{color:"black"}}> RemoteDev@2024</span></h3>
     </div>
   );
 };
