@@ -1,7 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FixtureCard from "./card";
 import axios from "axios";
+import { motion } from "framer-motion";
 import "./fixtures.scss";
 
 const initialState = { minutes: 3, seconds: 0 };
@@ -11,6 +12,23 @@ const Fixtures = () => {
   const [matchList, setMatchList] = useState([]);
   const [time, setTime] = useState(initialState);
   const [loading, setLoading] = useState(false);
+
+  const ref = useRef();
+
+  const variants = {
+    initial: {
+      y: 300,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
@@ -51,7 +69,9 @@ const Fixtures = () => {
   // }, []);
 
   return (
-    <div className="fixtureMain">
+    <motion.div   ref={ref}  variants={variants}
+    initial="initial"
+    whileInView="animate" className="fixtureMain">
       <div className="titleContainer">
         <div className="title">
           <h1>
@@ -137,7 +157,7 @@ const Fixtures = () => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

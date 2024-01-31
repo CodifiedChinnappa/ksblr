@@ -8,7 +8,7 @@ import { FaPhone } from "react-icons/fa6";
 
 const variants = {
   initial: {
-    y: 300,
+    y: 200,
     opacity: 0,
   },
   animate: {

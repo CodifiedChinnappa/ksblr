@@ -32,6 +32,7 @@
       border-radius: 4px;
       cursor: pointer;
 
+
       &:focus {
         outline: none;
         border-color: #007bff;
@@ -59,18 +60,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    color: black;
-    margin-block: 1rem;
+    margin-block: 0.7rem;
+    gap: 5px;
+    min-width: 250px;
 
-    min-width: 400px;
-    @include tablet {
-      min-width: 250px;
-    }
+
+    
 
     .teamContainer {
       margin-bottom: 20px;
@@ -224,12 +222,23 @@ hr {
 
 .select-game {
   height: 50vh;
-  width: 100%;
+  width:fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
 
+
   select {
-    width: -webkit-fill-available;
+    @include mobile{
+      width: 89%;
+    }
   }
+}
+
+
+.jersey{
+   position: absolute;
+   top: 0px;
+   inset: 0 0;
+
 }

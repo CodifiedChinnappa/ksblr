@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "./scoreUpdate.scss";
+import { IoShirt } from "react-icons/io5";
 import Spinner from "@/components/spinner/spinner";
 import Nav from "../Nav";
 
@@ -191,6 +192,26 @@ const UpdateMatchForm = () => {
     );
   };
 
+  function getOrdinalSuffix(number) {
+    if (number === 11 || number === 12 || number === 13) {
+        return number + "th";
+    } else {
+        const lastDigit = number % 10;
+        switch (lastDigit) {
+            case 1:
+                return number + "st";
+            case 2:
+                return number + "nd";
+            case 3:
+                return number + "rd";
+            default:
+                return number + "th";
+        }
+    }
+}
+
+
+
   return (
     <div className="scoreWrapper">
       <Nav />
@@ -303,6 +324,7 @@ const UpdateMatchForm = () => {
                         placeholder="Time"
                         required
                         min={0}
+                        max={60}
                         value={scoreDataTeamA.time || ""}
                         onChange={(e) =>
                           setScoreDataTeamA({
@@ -361,17 +383,27 @@ const UpdateMatchForm = () => {
                       Add
                     </button>
                   </div>
-                  <>
-                    {" "}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      background: "white",
+                      alignItems: "center",
+                      padding: "10px",
+                      color: "black",
+                    }}
+                  >
                     <strong>
                       Goals: ({selectedMatch.teams[0].goalScorer.length})
                     </strong>
                     {selectedMatch?.teams[0].goalScorer.map((scorer, index) => (
                       <div key={index} className="scorerContainer">
-                        <h3> {scorer.player} </h3>
-                        <h3> {scorer.time} Min </h3>
-                        <h3> {scorer.jersey} </h3>
-                        <h3> {scorer.goalType.slice(0, 3)} </h3>
+                          <h3> {scorer.jersey} </h3>
+                          <IoShirt />
+                        <h3>
+                          {scorer.player}({getOrdinalSuffix(scorer.time)})
+                        </h3>
+                        <h3> {scorer.goalType.slice(0, 1)} </h3>
                         <button
                           type="button"
                           style={{ background: "red" }}
@@ -386,7 +418,7 @@ const UpdateMatchForm = () => {
                         </button>
                       </div>
                     ))}
-                  </>
+                  </div>
                   <div
                     style={{
                       display: "flex",
@@ -417,7 +449,7 @@ const UpdateMatchForm = () => {
                   </div>
                   <div
                     className="scorerContainer"
-                    style={{ flexDirection: "column" }}
+                    style={{ flexDirection: "column", paddingBlock:"1rem",  }}
                   >
                     {selectedMatch.teams[0].shootout.map((item, i) => (
                       <h5 key={i}>
@@ -462,6 +494,7 @@ const UpdateMatchForm = () => {
                         placeholder="Time"
                         required
                         min={0}
+                        max={60}
                         value={scoreDataTeamB.time || ""}
                         onChange={(e) =>
                           setScoreDataTeamB({
@@ -520,17 +553,28 @@ const UpdateMatchForm = () => {
                       </button>
                     </div>
                   </div>
-                  <>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      background: "white",
+                      alignItems: "center",
+                      padding: "10px",
+                      color: "black",
+                    }}
+                  >
                     <strong>
                       Goals: ({selectedMatch.teams[1].goalScorer.length})
                     </strong>
 
                     {selectedMatch?.teams[1].goalScorer.map((scorer, index) => (
                       <div key={index} className="scorerContainer">
-                        <h3> {scorer.player} </h3>
-                        <h3> {scorer.time} Min </h3>
-                        <h3> {scorer.jersey} </h3>
-                        <h3> {scorer.goalType.slice(0, 3)} </h3>
+                          <h3> {scorer.jersey} </h3>
+                          <IoShirt />
+                        <h3>
+                        {scorer.player}({getOrdinalSuffix(scorer.time)})
+                        </h3>
+                        <h3> {scorer.goalType.slice(0, 1)} </h3>
                         <button
                           type="button"
                           style={{ background: "red" }}
@@ -545,6 +589,7 @@ const UpdateMatchForm = () => {
                         </button>
                       </div>
                     ))}
+                  </div>
                   <div
                     style={{
                       display: "flex",
@@ -575,7 +620,7 @@ const UpdateMatchForm = () => {
                   </div>
                   <div
                     className="scorerContainer"
-                    style={{ flexDirection: "column" }}
+                    style={{ flexDirection: "column" , paddingBlock:"1rem"}}
                   >
                     {selectedMatch.teams[1].shootout.map((item, i) => (
                       <h5 key={i}>
@@ -583,8 +628,6 @@ const UpdateMatchForm = () => {
                       </h5>
                     ))}
                   </div>
-                  </>
-
                 </div>
               </div>
 

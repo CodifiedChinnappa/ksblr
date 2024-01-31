@@ -5,16 +5,9 @@ import Image from "next/image";
 
 const sponsors = [
   {
-    name: "sponsor1",
-    imageSrc: "",
-  },
-  {
-    name: "sponsor1",
-    imageSrc: "",
-  },
-  {
-    name: "sponsor1",
-    imageSrc: "",
+    name: "brigade road",
+    imageSrc:
+      "https://e7.pngegg.com/pngimages/454/167/png-clipart-decathlon-logo-decathlon-logo-icons-logos-emojis-shop-logos.png",
   },
 ];
 
