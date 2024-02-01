@@ -160,12 +160,7 @@ const CreateSchedule = () => {
               >
                 <option value="">Select Team</option>
                 {teamList
-                  ?.filter(
-                    (teamOption) =>
-                      teamOption.name !==
-                      formData.teams[teamIndex === 0 ? 1 : 0].name
-                  )
-                  .map((teamOption) => (
+                  ?.map((teamOption) => (
                     <option key={teamOption.id} value={teamOption.name}>
                       {teamOption.name}
                     </option>

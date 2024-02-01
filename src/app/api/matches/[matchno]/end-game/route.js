@@ -34,17 +34,27 @@ export async function PATCH(request) {
       data: existingMatch,
     });
 
+    const nextMatch = await prisma.match.findUnique({
+      where: {matchNo: updatedMatch.nextMatch },
+    });
+
+    delete nextMatch.id;
+
+    const indexOfTBD = nextMatch.teams.findIndex(team => team.name === "TBD");
+
+    if (indexOfTBD !== -1) {
+      nextMatch.teams[indexOfTBD].name = existingMatch.winner;
+    }
+
+
     // Replace "TBD" team name with the winner
     const updatedNextMatch = await prisma.match.update({
-      where: { matchNo: parseInt(existingMatch.nextMatch) },
-      data: {
-        teams: {
-          updateMany: {
-            where: { name: "TBD" },
-            data: { name: existingMatch.winner },
-          },
-        },
+      where: {
+        matchNo: parseInt(existingMatch.nextMatch),
       },
+      data: 
+        nextMatch
+      ,
     });
 
     return NextResponse.json({
