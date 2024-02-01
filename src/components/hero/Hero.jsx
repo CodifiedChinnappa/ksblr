@@ -51,19 +51,14 @@ const Hero = () => {
               <SlCalender /> &nbsp; 4<sup>th</sup> Feb - 25<sup>th</sup> Feb
               2024
             </p>
-            <p>
-            </p>
+            <p></p>
           </motion.h1>
           <motion.h3 variants={textVariants}>
             <FaLocationDot />
             field marshal k m cariappa hockey arena, shanthinagar
           </motion.h3>
-        <CountDown/>
-          <a
-            className="downloadLink"
-            href="/fixtures.pdf"
-            download
-          >
+          <CountDown />
+          <a className="downloadLink" href="/fixtures.pdf" download>
             <FaFileDownload /> &nbsp; Download Fixture
           </a>
           <motion.a href={"#Fixtures"} key={"Fixtures"}>
@@ -75,10 +70,6 @@ const Hero = () => {
             />
           </motion.a>
         </motion.div>
-      </div>
-
-      <div className="imageContainer">
-        <Image src="/hero.png" alt="" width={300} height={100} />
       </div>
     </div>
   );

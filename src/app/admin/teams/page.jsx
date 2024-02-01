@@ -13,11 +13,9 @@ const TeamsPage = () => {
 
   const fetchTeams = async () => {
     setLoadingTeams(true);
+
     try {
       const res = await axios.get("/api/teams");
-      if (res?.statusText !== "OK") {
-        throw new Error("Network response was not ok");
-      }
       setTeams(res.data.teams);
     } catch (error) {
       console.error("Error fetching teams:", error);

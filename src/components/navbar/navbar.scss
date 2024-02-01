@@ -1,8 +1,8 @@
 @import "@/styles/root.scss";
 
 .navbar {
+  background-color: #00308f;
   height: 100px;
-
   .wrapper {
     max-width: 1366px;
     margin: auto;
@@ -12,9 +12,6 @@
     height: 100%;
     padding-inline: 5rem;
 
-    @include desktop {
-      justify-content: flex-end;
-    }
     @include mobile {
       padding: 20px;
     }
@@ -29,6 +26,10 @@
     .social {
       display: flex;
       gap: 20px;
+      .image {
+        -webkit-filter: grayscale(1) invert(1);
+        filter: grayscale(1) invert(1);
+      }
     }
   }
 }
