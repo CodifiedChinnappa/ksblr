@@ -41,7 +41,7 @@ const UpdateMatchForm = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `/api/matches/${selectedMatch.matchNo}/add-score`,
+        `/api/matches/${selectedMatch?.matchNo}/add-score`,
         {
           method: "PATCH",
           headers: {
@@ -49,7 +49,7 @@ const UpdateMatchForm = () => {
           },
           body: JSON.stringify({
             teamId,
-            matchNo: selectedMatch.matchNo,
+            matchNo: selectedMatch?.matchNo,
             ...scoreData,
           }),
         }
@@ -67,8 +67,8 @@ const UpdateMatchForm = () => {
   const handleEndGame = async () => {
     setLoading(true);
     try {
-      await axios.patch(`/api/matches/${selectedMatch.matchNo}/end-game`, {
-        matchNo: selectedMatch.matchNo,
+      await axios.patch(`/api/matches/${selectedMatch?.matchNo}/end-game`, {
+        matchNo: selectedMatch?.matchNo,
       });
       fetchMatches();
       setSelectedMatch(null);
@@ -80,7 +80,7 @@ const UpdateMatchForm = () => {
 
   const handleDeleteGoalScorer = async (teamName, playerNameToRemove) => {
     setLoading(true);
-    const updatedTeams = selectedMatch.teams.map((team) => {
+    const updatedTeams = selectedMatch?.teams.map((team) => {
       if (team.name === teamName) {
         const updatedGoalScorer = team.goalScorer.filter(
           (scorer) => scorer.player !== playerNameToRemove
@@ -92,9 +92,9 @@ const UpdateMatchForm = () => {
 
     try {
       const response = await axios.patch(
-        `/api/matches/${selectedMatch.matchNo}/delete-score`,
+        `/api/matches/${selectedMatch?.matchNo}/delete-score`,
         {
-          matchNo: selectedMatch.matchNo,
+          matchNo: selectedMatch?.matchNo,
           teams: updatedTeams,
         }
       );
@@ -125,6 +125,7 @@ const UpdateMatchForm = () => {
   };
 
   function getStartingLetters(inputString) {
+    if (!inputString) return;
     const wordsArray = inputString.split(" ");
     const startingLetters = wordsArray.map((word) => word.charAt(0));
     return startingLetters.join("").slice(0, 4);
@@ -134,8 +135,8 @@ const UpdateMatchForm = () => {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `/api/matches/${selectedMatch.id}/change-${fieldName}`,
-        { matchNo: selectedMatch.matchNo, value }
+        `/api/matches/${selectedMatch?.id}/change-${fieldName}`,
+        { matchNo: selectedMatch?.matchNo, value }
       );
       setSelectedMatch(response.data.match);
     } catch (error) {
@@ -149,9 +150,9 @@ const UpdateMatchForm = () => {
     try {
       // Make a PATCH request to your API route
       const response = await axios.patch(
-        `/api/matches/${selectedMatch.matchNo}/shootout`,
+        `/api/matches/${selectedMatch?.matchNo}/shootout`,
         {
-          matchNo: selectedMatch.matchNo,
+          matchNo: selectedMatch?.matchNo,
           teamId,
           value,
         }
@@ -184,7 +185,7 @@ const UpdateMatchForm = () => {
             matchList?.map((match) => (
               <option key={match?.matchNo} value={match.matchNo}>
                 match:{match.matchNo} {match.teams[0].name} VS{" "}
-                {match.teams[1].name}
+                {match.teams[1]?.name}
               </option>
             ))}
         </select>
@@ -194,461 +195,451 @@ const UpdateMatchForm = () => {
 
   function getOrdinalSuffix(number) {
     if (number === 11 || number === 12 || number === 13) {
-        return number + "th";
+      return number + "th";
     } else {
-        const lastDigit = number % 10;
-        switch (lastDigit) {
-            case 1:
-                return number + "st";
-            case 2:
-                return number + "nd";
-            case 3:
-                return number + "rd";
-            default:
-                return number + "th";
-        }
+      const lastDigit = number % 10;
+      switch (lastDigit) {
+        case 1:
+          return number + "st";
+        case 2:
+          return number + "nd";
+        case 3:
+          return number + "rd";
+        default:
+          return number + "th";
+      }
     }
-}
-
-
+  }
 
   return (
     <div className="scoreWrapper">
       <Nav />
+      <GameSelect />
 
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {selectedMatch ? (
+      {loading && <Spinner />}
+      {selectedMatch && (
+        <div>
+          <label>
+            <h2 style={{ fontSize: "1.4rem", textAlign: "center" }}>
+              Match {selectedMatch?.matchNo}
+            </h2>
+
+            <div
+              style={{
+                textTransform: "capitalize",
+                marginTop: "1rem",
+                textAlign: "center",
+              }}
+            >
+              {selectedMatch?.teams[0]?.name} <br />
+              vs
+              <br /> {selectedMatch?.teams[1]?.name}
+            </div>
+          </label>
+
+          <hr />
+          {/* status Dropdown */}
+          <div className="dropdownContainer">
             <div>
+              <label>Status:</label>
+              <select
+                value={selectedMatch?.status}
+                onChange={(e) => {
+                  handleSelectChange("status", e.target.value);
+                }}
+              >
+                {["UPCOMING", "LIVE"].map((value) => (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Period:</label>
+              <select
+                value={selectedMatch?.period}
+                onChange={(e) => {
+                  handleSelectChange("period", e.target.value);
+                }}
+              >
+                {[
+                  "NP",
+                  "START",
+                  "SCHEDULED",
+                  "FIRST_QUARTER",
+                  "SECOND_QUARTER",
+                  "HALF",
+                  "THIRD_QUARTER",
+                  "FOURTH_QUARTER",
+                  "FULL",
+                  "SHOOTOUT",
+                ].map((value) => (
+                  <option key={value} defaultValue={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <hr />
+          <div className="scoreboard">
+            {/* Team A */}
+            <div className="team-a">
               <label>
-                <h2 style={{ fontSize: "1.4rem", textAlign: "center" }}>
-                  Match {selectedMatch.matchNo}
-                </h2>
-
                 <div
                   style={{
-                    textTransform: "capitalize",
-                    marginTop: "1rem",
-                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    fontWeight: 900,
                   }}
                 >
-                  {selectedMatch.teams[0].name} <br />
-                  vs
-                  <br /> {selectedMatch.teams[1].name}
+                  {getStartingLetters(selectedMatch?.teams[0]?.name)}
                 </div>
+                <br />
               </label>
 
-              <hr />
-              {/* status Dropdown */}
-              <div className="dropdownContainer">
-                <div>
-                  <label>Status:</label>
-                  <select
-                    value={selectedMatch.status}
-                    onChange={(e) => {
-                      handleSelectChange("status", e.target.value);
-                    }}
-                  >
-                    {["UPCOMING", "LIVE"].map((value) => (
-                      <option key={value} value={value}>
-                        {value}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label>Period:</label>
-                  <select
-                    value={selectedMatch.period}
-                    onChange={(e) => {
-                      handleSelectChange("period", e.target.value);
-                    }}
-                  >
-                    {[
-                      "NP",
-                      "START",
-                      "SCHEDULED",
-                      "FIRST_QUARTER",
-                      "SECOND_QUARTER",
-                      "HALF",
-                      "THIRD_QUARTER",
-                      "FOURTH_QUARTER",
-                      "FULL",
-                      "SHOOTOUT",
-                    ].map((value) => (
-                      <option key={value} defaultValue={value}>
-                        {value}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <hr />
-              <div className="scoreboard">
-                {/* Team A */}
-                <div className="team-a">
-                  <label>
-                    <div
-                      style={{
-                        fontSize: "1.5rem",
-                        fontWeight: 900,
-                      }}
-                    >
-                      {getStartingLetters(selectedMatch.teams[0].name)}
-                    </div>
-                    <br />
-                  </label>
-
-                  <div className="teamContainer">
-                    <label>
-                      Player:
-                      <input
-                        type="text"
-                        placeholder="player"
-                        required
-                        onChange={(e) =>
-                          setScoreDataTeamA({
-                            ...scoreDataTeamA,
-                            player: e.target.value,
-                          })
-                        }
-                      />
-                    </label>
-
-                    <label>
-                      Time:
-                      <input
-                        type="number"
-                        placeholder="Time"
-                        required
-                        min={0}
-                        max={60}
-                        value={scoreDataTeamA.time || ""}
-                        onChange={(e) =>
-                          setScoreDataTeamA({
-                            ...scoreDataTeamA,
-                            time: parseInt(e.target.value),
-                          })
-                        }
-                      />
-                    </label>
-                    <label>
-                      Jersey:
-                      <input
-                        type="text"
-                        placeholder="Jersey"
-                        value={scoreDataTeamA.jersey || ""}
-                        onChange={(e) =>
-                          setScoreDataTeamA({
-                            ...scoreDataTeamA,
-                            jersey: parseInt(e.target.value),
-                          })
-                        }
-                      />
-                    </label>
-                    <div className="container">
-                      <div className="radio-container">
-                        <input
-                          type="radio"
-                          id="fieldGoalA"
-                          value="FIELD"
-                          checked={scoreDataTeamA.goalType === "FIELD"}
-                          onChange={() =>
-                            setScoreDataTeamA({
-                              ...scoreDataTeamA,
-                              goalType: "FIELD",
-                            })
-                          }
-                        />
-                        <label htmlFor="fieldGoalA">Field Goal</label>
-
-                        <input
-                          type="radio"
-                          id="penaltyA"
-                          value="PENALTY"
-                          checked={scoreDataTeamA.goalType === "PENALTY"}
-                          onChange={() =>
-                            setScoreDataTeamA({
-                              ...scoreDataTeamA,
-                              goalType: "PENALTY",
-                            })
-                          }
-                        />
-                        <label htmlFor="penaltyA">Penalty</label>
-                      </div>
-                    </div>
-                    <button onClick={() => handleAddGoal(0, scoreDataTeamA)}>
-                      Add
-                    </button>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      background: "white",
-                      alignItems: "center",
-                      padding: "10px",
-                      color: "black",
-                    }}
-                  >
-                    <strong>
-                      Goals: ({selectedMatch.teams[0].goalScorer.length})
-                    </strong>
-                    {selectedMatch?.teams[0].goalScorer.map((scorer, index) => (
-                      <div key={index} className="scorerContainer">
-                          <h3> {scorer.jersey} </h3>
-                          <IoShirt />
-                        <h3>
-                          {scorer.player}({getOrdinalSuffix(scorer.time)})
-                        </h3>
-                        <h3> {scorer.goalType.slice(0, 1)} </h3>
-                        <button
-                          type="button"
-                          style={{ background: "red" }}
-                          onClick={() =>
-                            handleDeleteGoalScorer(
-                              selectedMatch.teams[0].name,
-                              scorer.player
-                            )
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    Shootout (
-                    {
-                      selectedMatch.teams[0].shootout.filter(
-                        (item) => item === true
-                      ).length
+              <div className="teamContainer">
+                <label>
+                  Player:
+                  <input
+                    type="text"
+                    placeholder="player"
+                    required
+                    onChange={(e) =>
+                      setScoreDataTeamA({
+                        ...scoreDataTeamA,
+                        player: e.target.value,
+                      })
                     }
-                    )
-                    <button
-                      type="button"
-                      onClick={() => handleShootoutUpdate(0, true)}
-                    >
-                      Score
-                    </button>
-                    <button
-                      type="button"
-                      style={{ background: "#FF5733" }}
-                      onClick={() => handleShootoutUpdate(0, false)}
-                    >
-                      Miss
-                    </button>
-                  </div>
-                  <div
-                    className="scorerContainer"
-                    style={{ flexDirection: "column", paddingBlock:"1rem",  }}
-                  >
-                    {selectedMatch.teams[0].shootout.map((item, i) => (
-                      <h5 key={i}>
-                        {i + 1} : {item ? "scored" : "missed"}
-                      </h5>
-                    ))}
-                  </div>
-                </div>
-                {/* Team B */}
-                <div className="team-b">
-                  <label>
-                    <div
-                      style={{
-                        fontSize: "1.5rem",
-                        fontWeight: 900,
-                      }}
-                    >
-                      {getStartingLetters(selectedMatch.teams[1].name)}
-                    </div>
-                    <br />
-                  </label>
+                  />
+                </label>
 
-                  <div className="teamContainer">
-                    <label>
-                      Player:
-                      <input
-                        type="text"
-                        placeholder="player"
-                        required
-                        onChange={(e) =>
-                          setScoreDataTeamB({
-                            ...scoreDataTeamB,
-                            player: e.target.value,
-                          })
-                        }
-                      />
-                    </label>
-                    <label>
-                      Time:
-                      <input
-                        type="number"
-                        placeholder="Time"
-                        required
-                        min={0}
-                        max={60}
-                        value={scoreDataTeamB.time || ""}
-                        onChange={(e) =>
-                          setScoreDataTeamB({
-                            ...scoreDataTeamB,
-                            time: parseInt(e.target.value),
-                          })
-                        }
-                      />
-                    </label>
-                    <label>
-                      Jersey:
-                      <input
-                        type="text"
-                        placeholder="Jersey"
-                        value={scoreDataTeamB.jersey || ""}
-                        onChange={(e) =>
-                          setScoreDataTeamB({
-                            ...scoreDataTeamB,
-                            jersey: parseInt(e.target.value),
-                          })
-                        }
-                      />
-                    </label>
-                    <div className="container">
-                      <div className="radio-container">
-                        <input
-                          type="radio"
-                          id="fieldGoalB"
-                          value="FIELD"
-                          checked={scoreDataTeamB.goalType === "FIELD"}
-                          onChange={() =>
-                            setScoreDataTeamB({
-                              ...scoreDataTeamB,
-                              goalType: "FIELD",
-                            })
-                          }
-                        />
-                        <label htmlFor="fieldGoalB">Field Goal</label>
-
-                        <input
-                          type="radio"
-                          id="penaltyB"
-                          value="PENALTY"
-                          checked={scoreDataTeamB.goalType === "PENALTY"}
-                          onChange={() =>
-                            setScoreDataTeamB({
-                              ...scoreDataTeamB,
-                              goalType: "PENALTY",
-                            })
-                          }
-                        />
-                        <label htmlFor="penaltyB">Penalty</label>
-                      </div>
-                      <button onClick={() => handleAddGoal(1, scoreDataTeamB)}>
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      background: "white",
-                      alignItems: "center",
-                      padding: "10px",
-                      color: "black",
-                    }}
-                  >
-                    <strong>
-                      Goals: ({selectedMatch.teams[1].goalScorer.length})
-                    </strong>
-
-                    {selectedMatch?.teams[1].goalScorer.map((scorer, index) => (
-                      <div key={index} className="scorerContainer">
-                          <h3> {scorer.jersey} </h3>
-                          <IoShirt />
-                        <h3>
-                        {scorer.player}({getOrdinalSuffix(scorer.time)})
-                        </h3>
-                        <h3> {scorer.goalType.slice(0, 1)} </h3>
-                        <button
-                          type="button"
-                          style={{ background: "red" }}
-                          onClick={() =>
-                            handleDeleteGoalScorer(
-                              selectedMatch.teams[1].name,
-                              scorer.player
-                            )
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    Shootout (
-                    {
-                      selectedMatch.teams[1].shootout.filter(
-                        (item) => item === true
-                      ).length
+                <label>
+                  Time:
+                  <input
+                    type="number"
+                    placeholder="Time"
+                    required
+                    min={0}
+                    max={60}
+                    value={scoreDataTeamA.time || ""}
+                    onChange={(e) =>
+                      setScoreDataTeamA({
+                        ...scoreDataTeamA,
+                        time: parseInt(e.target.value),
+                      })
                     }
-                    )
-                    <button
-                      type="button"
-                      onClick={() => handleShootoutUpdate(1, true)}
-                    >
-                      Score
-                    </button>
-                    <button
-                      type="button"
-                      style={{ background: "#FF5733" }}
-                      onClick={() => handleShootoutUpdate(1, false)}
-                    >
-                      Miss
-                    </button>
-                  </div>
-                  <div
-                    className="scorerContainer"
-                    style={{ flexDirection: "column" , paddingBlock:"1rem"}}
-                  >
-                    {selectedMatch.teams[1].shootout.map((item, i) => (
-                      <h5 key={i}>
-                        {i + 1} : {item ? "scored" : "missed"}
-                      </h5>
-                    ))}
+                  />
+                </label>
+                <label>
+                  Jersey:
+                  <input
+                    type="text"
+                    placeholder="Jersey"
+                    value={scoreDataTeamA.jersey || ""}
+                    onChange={(e) =>
+                      setScoreDataTeamA({
+                        ...scoreDataTeamA,
+                        jersey: parseInt(e.target.value),
+                      })
+                    }
+                  />
+                </label>
+                <div className="container">
+                  <div className="radio-container">
+                    <input
+                      type="radio"
+                      id="fieldGoalA"
+                      value="FIELD"
+                      checked={scoreDataTeamA.goalType === "FIELD"}
+                      onChange={() =>
+                        setScoreDataTeamA({
+                          ...scoreDataTeamA,
+                          goalType: "FIELD",
+                        })
+                      }
+                    />
+                    <label htmlFor="fieldGoalA">Field Goal</label>
+
+                    <input
+                      type="radio"
+                      id="penaltyA"
+                      value="PENALTY"
+                      checked={scoreDataTeamA.goalType === "PENALTY"}
+                      onChange={() =>
+                        setScoreDataTeamA({
+                          ...scoreDataTeamA,
+                          goalType: "PENALTY",
+                        })
+                      }
+                    />
+                    <label htmlFor="penaltyA">Penalty</label>
                   </div>
                 </div>
-              </div>
-
-              <hr />
-              {loading ? (
-                <Spinner />
-              ) : (
-                <button
-                  type="submit"
-                  disabled={loading}
-                  onClick={handleEndGame}
-                  style={{ background: "#334AFF" }}
-                >
-                  End Match
+                <button onClick={() => handleAddGoal(0, scoreDataTeamA)}>
+                  Add
                 </button>
-              )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  background: "white",
+                  alignItems: "center",
+                  padding: "10px",
+                  color: "black",
+                }}
+              >
+                <strong>
+                  Goals: ({selectedMatch?.teams[0]?.goalScorer.length})
+                </strong>
+                {selectedMatch?.teams[0]?.goalScorer.map((scorer, index) => (
+                  <div key={index} className="scorerContainer">
+                    <h3> {scorer.jersey} </h3>
+                    <IoShirt />
+                    <h3>
+                      {scorer.player}({getOrdinalSuffix(scorer.time)})
+                    </h3>
+                    <h3> {scorer.goalType.slice(0, 1)} </h3>
+                    <button
+                      type="button"
+                      style={{ background: "red" }}
+                      onClick={() =>
+                        handleDeleteGoalScorer(
+                          selectedMatch?.teams[0].name,
+                          scorer.player
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                Shootout (
+                {
+                  selectedMatch?.teams[0]?.shootout.filter(
+                    (item) => item === true
+                  ).length
+                }
+                )
+                <button
+                  type="button"
+                  onClick={() => handleShootoutUpdate(0, true)}
+                >
+                  Score
+                </button>
+                <button
+                  type="button"
+                  style={{ background: "#FF5733" }}
+                  onClick={() => handleShootoutUpdate(0, false)}
+                >
+                  Miss
+                </button>
+              </div>
+              <div
+                className="scorerContainer"
+                style={{ flexDirection: "column", paddingBlock: "1rem" }}
+              >
+                {selectedMatch?.teams[0]?.shootout.map((item, i) => (
+                  <h5 key={i}>
+                    {i + 1} : {item ? "scored" : "missed"}
+                  </h5>
+                ))}
+              </div>
             </div>
-          ) : (
-            <GameSelect />
+            {/* Team B */}
+            <div className="team-b">
+              <label>
+                <div
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: 900,
+                  }}
+                >
+                  {getStartingLetters(selectedMatch?.teams[1]?.name)}
+                </div>
+                <br />
+              </label>
+
+              <div className="teamContainer">
+                <label>
+                  Player:
+                  <input
+                    type="text"
+                    placeholder="player"
+                    required
+                    onChange={(e) =>
+                      setScoreDataTeamB({
+                        ...scoreDataTeamB,
+                        player: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label>
+                  Time:
+                  <input
+                    type="number"
+                    placeholder="Time"
+                    required
+                    min={0}
+                    max={60}
+                    value={scoreDataTeamB.time || ""}
+                    onChange={(e) =>
+                      setScoreDataTeamB({
+                        ...scoreDataTeamB,
+                        time: parseInt(e.target.value),
+                      })
+                    }
+                  />
+                </label>
+                <label>
+                  Jersey:
+                  <input
+                    type="text"
+                    placeholder="Jersey"
+                    value={scoreDataTeamB.jersey || ""}
+                    onChange={(e) =>
+                      setScoreDataTeamB({
+                        ...scoreDataTeamB,
+                        jersey: parseInt(e.target.value),
+                      })
+                    }
+                  />
+                </label>
+                <div className="container">
+                  <div className="radio-container">
+                    <input
+                      type="radio"
+                      id="fieldGoalB"
+                      value="FIELD"
+                      checked={scoreDataTeamB.goalType === "FIELD"}
+                      onChange={() =>
+                        setScoreDataTeamB({
+                          ...scoreDataTeamB,
+                          goalType: "FIELD",
+                        })
+                      }
+                    />
+                    <label htmlFor="fieldGoalB">Field Goal</label>
+
+                    <input
+                      type="radio"
+                      id="penaltyB"
+                      value="PENALTY"
+                      checked={scoreDataTeamB.goalType === "PENALTY"}
+                      onChange={() =>
+                        setScoreDataTeamB({
+                          ...scoreDataTeamB,
+                          goalType: "PENALTY",
+                        })
+                      }
+                    />
+                    <label htmlFor="penaltyB">Penalty</label>
+                  </div>
+                  <button onClick={() => handleAddGoal(1, scoreDataTeamB)}>
+                    Add
+                  </button>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  background: "white",
+                  alignItems: "center",
+                  padding: "10px",
+                  color: "black",
+                }}
+              >
+                <strong>
+                  Goals: ({selectedMatch?.teams[1]?.goalScorer.length})
+                </strong>
+
+                {selectedMatch?.teams[1]?.goalScorer.map((scorer, index) => (
+                  <div key={index} className="scorerContainer">
+                    <h3> {scorer.jersey} </h3>
+                    <IoShirt />
+                    <h3>
+                      {scorer.player}({getOrdinalSuffix(scorer.time)})
+                    </h3>
+                    <h3> {scorer.goalType.slice(0, 1)} </h3>
+                    <button
+                      type="button"
+                      style={{ background: "red" }}
+                      onClick={() =>
+                        handleDeleteGoalScorer(
+                          selectedMatch?.teams[1].name,
+                          scorer.player
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                Shootout (
+                {
+                  selectedMatch?.teams[1]?.shootout.filter(
+                    (item) => item === true
+                  ).length
+                }
+                )
+                <button
+                  type="button"
+                  onClick={() => handleShootoutUpdate(1, true)}
+                >
+                  Score
+                </button>
+                <button
+                  type="button"
+                  style={{ background: "#FF5733" }}
+                  onClick={() => handleShootoutUpdate(1, false)}
+                >
+                  Miss
+                </button>
+              </div>
+              <div
+                className="scorerContainer"
+                style={{ flexDirection: "column", paddingBlock: "1rem" }}
+              >
+                {selectedMatch?.teams[1]?.shootout.map((item, i) => (
+                  <h5 key={i}>
+                    {i + 1} : {item ? "scored" : "missed"}
+                  </h5>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          {selectedMatch?.status !== "RESULT" && (
+            <button
+              type="submit"
+              disabled={selectedMatch?.status == "RESULT"}
+              onClick={handleEndGame}
+              style={{ background: "#334AFF" }}
+            >
+              End Match
+            </button>
           )}
-        </>
+        </div>
       )}
     </div>
   );
