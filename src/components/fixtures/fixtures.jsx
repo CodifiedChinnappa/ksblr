@@ -5,7 +5,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import "./fixtures.scss";
 
-const initialState = { minutes: 3, seconds: 0 };
+const initialState = { minutes: 10, seconds: 0 };
 
 const Fixtures = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -49,24 +49,24 @@ const Fixtures = () => {
     fetchMatches();
   }, []);
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setTime((prevTime) => {
-  //       if (prevTime.minutes === 0 && prevTime.seconds === 0) {
-  //         fetchMatches();
-  //         setTime(initialState);
-  //       } else {
-  //         return {
-  //           minutes:
-  //             prevTime.seconds === 0 ? prevTime.minutes - 1 : prevTime.minutes,
-  //           seconds: prevTime.seconds === 0 ? 59 : prevTime.seconds - 1,
-  //         };
-  //       }
-  //     });
-  //   }, 1000);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((prevTime) => {
+        if (prevTime.minutes === 0 && prevTime.seconds === 0) {
+          fetchMatches();
+          setTime(initialState);
+        } else {
+          return {
+            minutes:
+              prevTime.seconds === 0 ? prevTime.minutes - 1 : prevTime.minutes,
+            seconds: prevTime.seconds === 0 ? 59 : prevTime.seconds - 1,
+          };
+        }
+      });
+    }, 1000);
 
-  //   return () => clearInterval(timer);
-  // }, []);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <motion.div   ref={ref}  variants={variants}
@@ -116,16 +116,16 @@ const Fixtures = () => {
                 <p className="tabButton">loading...</p>
               ) : (
                 <>
-                  <button className="tabButton" onClick={fetchMatches}>
+                  {/* <button className="tabButton" onClick={fetchMatches}>
                     Refresh
-                  </button>
-                  {/* <h4 style={{ marginTop: "5px" }}>
+                  </button> */}
+                  <h4 style={{ marginTop: "5px" }}>
                     ( Auto Refreshes in{" "}
                     {`${time?.minutes}:${
                       time?.seconds < 10 ? `0${time?.seconds}` : time?.seconds
                     }`}{" "}
                     Minutes)
-                  </h4> */}
+                  </h4>
                 </>
               )}
             </div>

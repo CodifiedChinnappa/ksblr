@@ -45,7 +45,7 @@ const Hero = () => {
           <motion.h2 variants={textVariants}>KODAVA SAMAJA BANGALORE</motion.h2>
 
           <motion.h1 variants={textVariants}>
-            19<sup>th</sup> inter-sanga hockey tournament
+            19<sup>th</sup> inter-sangha hockey tournament
             <br />
             <p>
               <SlCalender /> &nbsp; 4<sup>th</sup> Feb - 25<sup>th</sup> Feb
