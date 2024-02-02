@@ -2,7 +2,7 @@
 
 .hero {
   height: calc(100vh - 100px);
-  background: #002244;
+  background: #89CFF0;
 
   position: relative;
 
@@ -62,11 +62,11 @@
         }
       }
       h1 {
-        color: burlywood;
+        color: #00308f;
       }
       h2 {
         font-size: 30px;
-        color: white;
+        color: black;
         letter-spacing: 10px;
         @include mobile {
           font-size: 20px;
@@ -94,7 +94,7 @@
       h3 {
         font-size: 1.6rem;
         text-transform: capitalize;
-        color: white;
+        color: BLACK;
 
         @include mobile {
           font-size: 0.8rem;

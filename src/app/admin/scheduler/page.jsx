@@ -90,6 +90,7 @@ const CreateSchedule = () => {
     try {
       const res = await axios.post("/api/matches", formData);
       resetFormData();
+      fetchMatches();
     } catch (error) {
       console.error("Error adding match:", error);
     }
