@@ -116,9 +116,9 @@ const Fixtures = () => {
                 <p className="tabButton">loading...</p>
               ) : (
                 <>
-                  {/* <button className="tabButton" onClick={fetchMatches}>
+                  <button className="tabButton" onClick={fetchMatches}>
                     Refresh
-                  </button> */}
+                  </button>
                   <h4 style={{ marginTop: "5px" }}>
                     ( Auto Refreshes in{" "}
                     {`${time?.minutes}:${
