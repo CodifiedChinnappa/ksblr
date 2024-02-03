@@ -265,14 +265,13 @@ const UpdateMatchForm = () => {
               >
                 {[
                   "NP",
-                  "START",
-                  "SCHEDULED",
                   "FIRST_QUARTER",
+                  "FIRST_HALF",
                   "SECOND_QUARTER",
                   "HALF",
+                  "SECOND_HALF",
                   "THIRD_QUARTER",
                   "FOURTH_QUARTER",
-                  "FULL",
                   "SHOOTOUT",
                 ].map((value) => (
                   <option key={value} defaultValue={value}>
