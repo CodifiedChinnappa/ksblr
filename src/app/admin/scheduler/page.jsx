@@ -107,7 +107,7 @@ const CreateSchedule = () => {
             type="datetime-local"
             value={formData.schedule}
             min="2024-02-04T00:00"
-            max="2024-02-25T00:00"
+            max="2024-02-26T00:00"
             name="schedule"
             onChange={(e) => handleChange(e)}
             required
