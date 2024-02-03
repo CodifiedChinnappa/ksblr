@@ -54,7 +54,7 @@ function calculateWinner(teams) {
 const FixtureCard = ({ match }) => {
   return (
     <div className="cardWrapper">
-      <p>
+      <p style={{color:"brown"}}>
         <SlCalender /> {formatDate(match.schedule)}, &nbsp;
         {formatDateTime(match.schedule)}
       </p>
