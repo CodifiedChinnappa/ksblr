@@ -3,7 +3,7 @@ import Auth from "./auth";
 const AdminLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body style={{background:"#000"}}>
+      <body className="bodyAdmin">
         <Auth>{children}</Auth>
       </body>
     </html>

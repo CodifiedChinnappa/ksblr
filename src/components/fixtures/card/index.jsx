@@ -54,7 +54,7 @@ function calculateWinner(teams) {
 const FixtureCard = ({ match }) => {
   return (
     <div className="cardWrapper">
-      <p style={{color:"brown"}}>
+      <p >
         <SlCalender /> {formatDate(match.schedule)}, &nbsp;
         {formatDateTime(match.schedule)}
       </p>
@@ -62,10 +62,10 @@ const FixtureCard = ({ match }) => {
         <div className="cardHeader">
           Match {match.matchNo} : {match.round} : {match.period}
           &nbsp;
-          <h5>
+          {/* <h5>
             {match.teams[0]?.name} <strong style={{ color: "blue" }}>VS</strong>{" "}
             {match.teams[1]?.name}
-          </h5>
+          </h5> */}
         </div>
 
         <div className="cardBody">
@@ -75,11 +75,12 @@ const FixtureCard = ({ match }) => {
             <div className="teams">
               <div
                 style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 900,
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  textAlign:"center"
                 }}
               >
-                {getStartingLetters(match.teams[0]?.name)}
+                {match.teams[0]?.name}
               </div>
 
               {!!match.teams[0]?.goalScorer.length > 0 ? (
@@ -133,8 +134,16 @@ const FixtureCard = ({ match }) => {
             </div>
 
             <div className="teams" style={{ textAlign: "end" }}>
-              <div className="label">
-                {getStartingLetters(match.teams[1]?.name)}
+          
+
+              <div
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  textAlign:"center"
+                }}
+              >
+                {match.teams[1]?.name}
               </div>
 
               {!!match.teams[1]?.goalScorer.length > 0 ? (

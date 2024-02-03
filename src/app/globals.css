@@ -14,7 +14,13 @@ html {
 
 body {
   max-width: 100vw;
+  min-height: 100vh;
   overflow-x: hidden;
+  background: linear-gradient(0deg, #3e3ec7, #adbced);
+  background: -webkit-linear-gradient(0deg, #3e3ec7, #adbced);
+  background: -moz-linear-gradient(0deg, #3e3ec7, #adbced);
+  background: -o-linear-gradient(0deg, #3e3ec7, #adbced);
+  background-repeat: no-repeat;
 }
 
 a {
@@ -29,15 +35,12 @@ section {
   overflow: hidden;
 }
 
-
-
-button{
-   cursor: pointer;
+button {
+  cursor: pointer;
 }
 
-
-#Fixtures,#Contact{
-  background-color: #B0C4DE;
-  background-image: linear-gradient(180deg, #B0C4DE 0%, #acc3e1 100%);
-  
+#Fixtures,
+#Contact {
+  background-color: #b0c4de;
+  background-image: linear-gradient(180deg, #b0c4de 0%, #acc3e1 100%);
 }

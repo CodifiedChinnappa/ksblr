@@ -1,10 +1,7 @@
 import Cursor from "@/components/cursor/Cursor";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
-// import Parallax from "@/components/parallax/Parallax";
 import Contact from "@/components/contact/Contact";
-// import About from "@/components/about/About";
-// import EventDetails from "@/components/eventDetails/EventDetails";
 import Fixtures from "@/components/fixtures/fixtures";
 
 export default function Home() {
@@ -18,10 +15,10 @@ export default function Home() {
       <section id="Fixtures">
         <Fixtures />
       </section>
-      {/* <section>
+     {/* <section>
         <Parallax type="About" />
       </section>
-      <section id="About" style={{ height: "max-content" }}>
+       <section id="About" style={{ height: "max-content" }}>
         <About />
       </section> */}
       {/* <section>

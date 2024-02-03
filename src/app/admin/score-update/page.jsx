@@ -633,7 +633,7 @@ const UpdateMatchForm = () => {
               type="submit"
               disabled={selectedMatch?.status == "RESULT"}
               onClick={handleEndGame}
-              style={{ background: "#334AFF" }}
+              style={{ background: "red" }}
             >
               End Match
             </button>

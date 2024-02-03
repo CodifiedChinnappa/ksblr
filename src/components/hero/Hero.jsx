@@ -2,7 +2,6 @@
 import "./hero.scss";
 import { motion } from "framer-motion";
 import { FaLocationDot } from "react-icons/fa6";
-import CountDown from "../countdown/countdown";
 import Image from "next/image";
 import { SlCalender } from "react-icons/sl";
 import { FaFileDownload } from "react-icons/fa";
@@ -48,20 +47,18 @@ const Hero = () => {
             19<sup>th</sup> inter-sangha hockey tournament
             <br />
             <p>
-              <SlCalender /> &nbsp; 4<sup>th</sup> Feb - 25<sup>th</sup> Feb
+              <SlCalender />  4<sup>th</sup> Feb - 25<sup>th</sup> Feb
               2024
             </p>
             <p></p>
           </motion.h1>
           <motion.h3 variants={textVariants}>
-            <FaLocationDot />
             field marshal k m cariappa hockey arena, shanthinagar
           </motion.h3>
-          <CountDown />
           <a className="downloadLink" href="/fixtures.pdf" download>
-            <FaFileDownload /> &nbsp; Download Fixture
+            <FaFileDownload /> &nbsp; Download Table
           </a>
-          <motion.a href={"#Fixtures"} key={"Fixtures"}>
+          <motion.a href={"#Fixtures"} key={"Fixtures"} style={{alignSelf:"center"}}>
             <motion.img
               variants={textVariants}
               animate="scrollButton"
