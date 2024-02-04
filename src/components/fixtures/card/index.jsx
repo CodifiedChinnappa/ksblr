@@ -87,7 +87,6 @@ function generateCommentary(teams) {
 }
 
 const FixtureCard = ({ match }) => {
-  console.log(console.log(generateCommentary(match.teams)));
   return (
     <div className="cardWrapper">
       <p>
