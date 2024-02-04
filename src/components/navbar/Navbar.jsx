@@ -15,7 +15,7 @@ const Navbar = () => {
             src="/logo.png"
             width={100}
             height={80}
-            alt="hi-fliers"
+            alt="ksblr.in"
           />
         </div>
       </div>

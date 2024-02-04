@@ -3,6 +3,7 @@ import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Contact from "@/components/contact/Contact";
 import Fixtures from "@/components/fixtures/fixtures";
+import Gallery from "@/components/gallery/gallery";
 
 export default function Home() {
   return (
@@ -14,6 +15,9 @@ export default function Home() {
       </section>
       <section id="Fixtures">
         <Fixtures />
+      </section>
+      <section id="Fixtures">
+        <Gallery />
       </section>
      {/* <section>
         <Parallax type="About" />

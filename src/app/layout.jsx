@@ -14,10 +14,10 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           name="keywords"
-          content="bangalore,  hockey, kodava, tournament"
+          content="bangalore,ksblr.in,ksblr, hockey, kodava, tournament"
         />
         <meta name="author" content="chinnappa" />
-        <link rel="canonical" href="https://hifliersvbadaga.in" />
+        <link rel="canonical" href="https://www.ksblr.in/" />
         <link rel="shortcut icon" href="./favicon-16x16.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
