@@ -5,7 +5,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import "./fixtures.scss";
 
-const initialState = { minutes: 10, seconds: 0 };
+const initialState = { minutes: 5, seconds: 0 };
 
 const Fixtures = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -69,13 +69,17 @@ const Fixtures = () => {
   }, []);
 
   return (
-    <motion.div   ref={ref}  variants={variants}
-    initial="initial"
-    whileInView="animate" className="fixtureMain">
+    <motion.div
+      ref={ref}
+      variants={variants}
+      initial="initial"
+      whileInView="animate"
+      className="fixtureMain"
+    >
       <div className="titleContainer">
         <div className="title">
           <h1>
-            <b >FIXTURES</b>
+            <b>FIXTURES</b>
           </h1>
         </div>
       </div>
@@ -109,25 +113,6 @@ const Fixtures = () => {
                 .map((match) => (
                   <FixtureCard key={match.matchNo} match={match} />
                 ))}
-
-              {!matchList.filter((match) => match.status === "LIVE").length >
-                0 && <div className="infoContainer">No match in progress</div>}
-              {loading ? (
-                <p className="tabButton">loading...</p>
-              ) : (
-                <>
-                  <button className="tabButton" onClick={fetchMatches}>
-                    Refresh
-                  </button>
-                  <h4 style={{ marginTop: "5px" }}>
-                    ( Auto Refreshes in{" "}
-                    {`${time?.minutes}:${
-                      time?.seconds < 10 ? `0${time?.seconds}` : time?.seconds
-                    }`}{" "}
-                    Minutes)
-                  </h4>
-                </>
-              )}
             </div>
           )}
           {activeTab === 2 && (
@@ -156,6 +141,23 @@ const Fixtures = () => {
             </div>
           )}
         </div>
+
+        {loading ? (
+          <p className="tabButton">loading...</p>
+        ) : (
+          <>
+            <button className="tabButton" onClick={fetchMatches}>
+              Refresh
+            </button>
+            <h4 style={{ marginTop: "5px" }}>
+              ( Auto Refreshes in{" "}
+              {`${time?.minutes}:${
+                time?.seconds < 10 ? `0${time?.seconds}` : time?.seconds
+              }`}{" "}
+              Minutes)
+            </h4>
+          </>
+        )}
       </div>
     </motion.div>
   );

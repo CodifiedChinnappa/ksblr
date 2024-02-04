@@ -65,13 +65,9 @@ function generateCommentary(teams) {
   if (goalsTeam1.length > 0) {
     goalsTeam1.forEach((goal) => {
       commentaryArray.push(
-        `${goal.player} scored at ${goal.time}th minute as ${
+        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${
           goal.goalType
-        } goal ${
-          goalsTeam2.length > goalsTeam1.length
-            ? "to take a lead"
-            : "trying to equalize"
-        }`
+        } goal`
       );
     });
   }
@@ -79,14 +75,12 @@ function generateCommentary(teams) {
   // Commentary for Team 2's goals
   if (goalsTeam2.length > 0) {
     goalsTeam2.forEach((goal) => {
+
+
       commentaryArray.push(
-        `${goal.player} scored at ${goal.time}th minute as ${
+        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${
           goal.goalType
-        } goal ${
-          goalsTeam2.length > goalsTeam1.length
-            ? "to take a lead"
-            : "trying to equalize"
-        }`
+        } goal `
       );
     });
   }
