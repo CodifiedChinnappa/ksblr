@@ -65,9 +65,7 @@ function generateCommentary(teams) {
   if (goalsTeam1.length > 0) {
     goalsTeam1.forEach((goal) => {
       commentaryArray.push(
-        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${
-          goal.goalType
-        } goal`
+        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${goal.goalType} goal`
       );
     });
   }
@@ -75,12 +73,8 @@ function generateCommentary(teams) {
   // Commentary for Team 2's goals
   if (goalsTeam2.length > 0) {
     goalsTeam2.forEach((goal) => {
-
-
       commentaryArray.push(
-        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${
-          goal.goalType
-        } goal `
+        `Its a goal! ${goal.player} scored at ${goal.time}th minute as ${goal.goalType} goal `
       );
     });
   }

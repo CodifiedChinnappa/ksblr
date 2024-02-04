@@ -3,6 +3,8 @@
   margin: auto;
   margin-top: 2rem;
 
+ 
+
   .titleContainer {
     display: flex;
     flex-direction: column;
@@ -38,7 +40,7 @@
   .tabsWrapper {
     width: 50%;
     margin: auto;
- 
+
     @include tablet {
       width: 90%;
     }
@@ -65,10 +67,9 @@
       max-height: 55vh;
       overflow-y: scroll;
       margin-top: 20px;
-      @include mobile{
+      @include mobile {
         max-height: 65vh;
       }
-      
     }
   }
   .tabButton {
@@ -100,7 +101,8 @@
   }
   .cardMain {
     text-transform: capitalize;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
     border-radius: 60px;
     .cardHeader {
       margin-bottom: 0;
