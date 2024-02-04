@@ -45,6 +45,7 @@ const Fixtures = () => {
     setLoading(false);
   };
 
+
   useEffect(() => {
     fetchMatches();
   }, []);

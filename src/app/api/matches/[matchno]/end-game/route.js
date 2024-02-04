@@ -41,11 +41,9 @@ export async function PATCH(request) {
     delete nextMatch.id;
 
     const indexOfTBD = nextMatch.teams.findIndex(team => team.name === "TBD");
-
     if (indexOfTBD !== -1) {
       nextMatch.teams[indexOfTBD].name = existingMatch.winner;
     }
-
 
     // Replace "TBD" team name with the winner
     const updatedNextMatch = await prisma.match.update({
@@ -59,7 +57,7 @@ export async function PATCH(request) {
 
     return NextResponse.json({
       message: "Match updated successfully",
-      match: updatedMatch,
+      match: updatedNextMatch,
     });
   } catch (error) {
     console.error(error);
