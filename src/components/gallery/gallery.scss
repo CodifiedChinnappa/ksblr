@@ -20,6 +20,7 @@
       font-weight: 100;
       text-transform: uppercase;
       text-align: center;
+      color: white;
 
       @include mobile {
         font-size: 50px;
@@ -31,6 +32,9 @@
     margin: auto;
     .image-gallery-slide img {
       height: 550px;
+      @include mobile {
+        height: 320px;
+      }
     }
   }
 }
