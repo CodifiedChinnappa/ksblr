@@ -25,15 +25,12 @@ const Gallery = () => {
   const images = [
     {
       original: `/gallery/img${1}.jpeg`,
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
     },
     {
       original: `/gallery/img${2}.jpeg`,
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
     },
     {
       original: `/gallery/img${3}.jpeg`,
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
     },
   ];
 
