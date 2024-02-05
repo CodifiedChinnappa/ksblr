@@ -22,17 +22,15 @@ const variants = {
 };
 
 const Gallery = () => {
-  const images = [
-    {
-      original: `/gallery/img${1}.jpeg`,
-    },
-    {
-      original: `/gallery/img${2}.jpeg`,
-    },
-    {
-      original: `/gallery/img${3}.jpeg`,
-    },
-  ];
+  function generateImagesArray(num) {
+    const images = [];
+    for (let i = 1; i <= num; i++) {
+      images.push({
+        original: `/gallery/img${i}.jpeg`,
+      });
+    }
+    return images;
+  }
 
   return (
     <div className="gallery">
@@ -43,7 +41,7 @@ const Gallery = () => {
       </div>
       <div className="image-container">
         <ImageGallery
-          items={images}
+          items={generateImagesArray(10)}
           showPlayButton={true}
           showFullscreenButton={true}
           slideInterval={4000}
