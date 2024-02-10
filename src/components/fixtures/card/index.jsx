@@ -104,11 +104,7 @@ const FixtureCard = ({ match }) => {
           <div className="gameInfo">
             <div className="teams">
               <div
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: 600,
-                  textAlign: "center",
-                }}
+               className="team-name"
               >
                 {match.teams[0]?.name}
               </div>

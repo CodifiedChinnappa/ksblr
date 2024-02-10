@@ -45,7 +45,6 @@ const Fixtures = () => {
     setLoading(false);
   };
 
-
   useEffect(() => {
     fetchMatches();
   }, []);
@@ -148,15 +147,12 @@ const Fixtures = () => {
         ) : (
           <>
             <button className="tabButton" onClick={fetchMatches}>
-              Refresh
-            </button>
-            <h4 style={{ marginTop: "5px" }}>
-              ( Auto Refreshes in{" "}
+              Refresh{" "}
               {`${time?.minutes}:${
                 time?.seconds < 10 ? `0${time?.seconds}` : time?.seconds
               }`}{" "}
-              Minutes)
-            </h4>
+              
+            </button>
           </>
         )}
       </div>

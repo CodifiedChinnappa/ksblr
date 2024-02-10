@@ -384,7 +384,7 @@ const UpdateMatchForm = () => {
                   display: "flex",
                   flexDirection: "column",
                   background: "white",
-                  alignItems: "center",
+                  alignItems: "stretch",
                   padding: "10px",
                   color: "black",
                 }}
@@ -397,9 +397,8 @@ const UpdateMatchForm = () => {
                     <h3> {scorer.jersey} </h3>
                     <IoShirt />
                     <h3>
-                      {scorer.player}({getOrdinalSuffix(scorer.time)})
+                      {scorer.player} ({getOrdinalSuffix(scorer.time)} {scorer.goalType.slice(0, 1)})
                     </h3>
-                    <h3> {scorer.goalType.slice(0, 1)} </h3>
                     <button
                       type="button"
                       style={{ background: "red" }}
