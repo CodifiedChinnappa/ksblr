@@ -8,7 +8,7 @@ const ConfettiComponent = () => {
     setConfetti(true);
     setTimeout(() => {
       setConfetti(false);
-    }, 60000);
+    }, 90000);
   }, []);
 
   return <div>{confetti && <Confetti />}</div>;

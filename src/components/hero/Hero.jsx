@@ -5,7 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import Image from "next/image";
 import { SlCalender } from "react-icons/sl";
 import { FaFileDownload } from "react-icons/fa";
-// import ConfettiCanvas from "./Confetti";
+import ConfettiCanvas from "./Confetti";
 
 const textVariants = {
   initial: {
@@ -33,7 +33,7 @@ const textVariants = {
 const Hero = () => {
   return (
     <div className="hero">
-      {/* <ConfettiCanvas /> */}
+      <ConfettiCanvas />
       <div className="wrapper">
         <motion.div
           className="textContainer"
@@ -53,8 +53,15 @@ const Hero = () => {
             <p></p>
           </motion.h1>
           <motion.h3 variants={textVariants}>
-            field marshal k m cariappa hockey arena, shanthinagar
+            field marshal k m cariappa hockey arena, Shanthinagar
           </motion.h3>
+          <motion.h3 variants={textVariants} className="prize">
+            Winner: HSR Layout Kodava Vakka
+            <br />
+            Second Runner-Up: Nellakki Kodava Sangha, Ramamurthynagar
+           
+          </motion.h3>
+
           <a className="downloadLink" href="/fixtures.pdf" download>
             <FaFileDownload /> &nbsp; Download Table
           </a>
